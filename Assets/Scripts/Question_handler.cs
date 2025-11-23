@@ -7,6 +7,8 @@ public class Question_handler : MonoBehaviour
     public GameObject question3;
     public GameObject question4;
     public int questionIndex = 0;
+
+    public int score = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -36,4 +38,10 @@ public class Question_handler : MonoBehaviour
             questionIndex = 4;
         }
     }
+    public void CorrectAnswer()
+    {
+       score += 1;
+    }
+
+
 }

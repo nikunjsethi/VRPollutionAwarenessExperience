@@ -11,7 +11,7 @@ public class PopupTrigger : MonoBehaviour
     public bool questionAnswered = false;
     public int questionIndex = 0;
     public Question_handler question_Handler;
-    private int questionPlayed = 0;
+    private int questionPlayed = 0;     
 
 
 
