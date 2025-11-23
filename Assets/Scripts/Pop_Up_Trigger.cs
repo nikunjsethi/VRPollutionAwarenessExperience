@@ -1,3 +1,4 @@
+using UnityEditor.UI;
 using UnityEngine;
 
 public class PopupTrigger : MonoBehaviour
@@ -5,6 +6,15 @@ public class PopupTrigger : MonoBehaviour
     [Header("Setup")]
     [Tooltip("The GameObject to show (e.g., a World Space Canvas).")]
     public GameObject popupContent;
+    public AudioSource Speaker;
+    public AudioClip question_Clip;
+    public bool questionAnswered = false;
+    public int questionIndex = 0;
+    public Question_handler question_Handler;
+    private int questionPlayed = 0;
+
+
+
 
     [Tooltip("The tag checking for the player.")]
     public string playerTag = "Player";
@@ -23,28 +33,41 @@ public class PopupTrigger : MonoBehaviour
         {
             popupContent.SetActive(false);
         }
-        else
-        {
-            Debug.LogWarning("PopupTrigger: No Popup Content assigned.");
-        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Check if the object entering is the Player
-        if (other.CompareTag(playerTag))
+        if(question_Handler.questionIndex == questionIndex - 1 && questionPlayed < questionIndex)
         {
-            if (popupContent != null)
+            // Check if the object entering is the Player
+            if (other.CompareTag(playerTag))
             {
-                popupContent.SetActive(true);
-                if (facePlayerOnEnable) LookAtPlayer(other.transform);
+                if (popupContent != null)
+                {
+                    popupContent.SetActive(true);
+                    if (facePlayerOnEnable) LookAtPlayer(other.transform);
+                }
+
+                if(Speaker != null && question_Clip != null)
+                {
+                    Speaker.PlayOneShot(question_Clip);
+                }
+
+                questionPlayed = questionIndex;
             }
         }
+
+        
+    }
+
+    private void Question_Answered()
+    {
+        
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (hideOnExit && other.CompareTag(playerTag))
+        if (questionAnswered && other.CompareTag(playerTag))
         {
             if (popupContent != null)
             {
