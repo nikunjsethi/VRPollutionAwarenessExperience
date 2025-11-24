@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/25 AQI.unity
     guid: aa172f9fb7040b047b3b3594758f65c3
   - enabled: 1
+    path: Assets/Scenes/100 AQI.unity
+    guid: 27b12d579c7cbce4e854d8547de18e9c
+  - enabled: 1
     path: Assets/Scenes/250 AQI.unity
     guid: 1bd579314e714f64280c6900f11865fb
   - enabled: 1
