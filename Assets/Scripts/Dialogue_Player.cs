@@ -3,41 +3,67 @@ using UnityEngine;
 public class Dialogue_Player : MonoBehaviour
 {
     public Question_handler question_Handler;
-    public AudioSource speaker;
-    public AudioClip AudioClip1;
-    public AudioClip AudioClip2;
-    public AudioClip AudioClip3;
-    public AudioClip AudioClip4;
+    public bool clipPlayed = false;
+    private int currentIndex = 0;
+    private AudioSource speaker;
+    public AudioClip intro1;
+    public AudioClip q1;
+    public AudioClip q2;
+    public AudioClip intro2;
+    public AudioClip q3;
+    public AudioClip intro3;
+    public AudioClip q4;
+    public AudioClip intro4;
 
-    private bool clip1 = false;
-    private bool clip2 = false;
-    private bool clip3 = false;
-    private bool clip4 = false;
-
-
+    void Start()
+    {
+        speaker = GetComponent<AudioSource>();
+        currentIndex = 0;
+        PlayIntro(0);
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if(question_Handler.questionIndex == 0 && clip1 == false)
+        
+    }
+
+    public void PlayDialogue(int index)
+    {
+        if(index == 1)
         {
-            speaker.PlayOneShot(AudioClip1);
-            clip1 = true;
+            speaker.PlayOneShot(q1);
         }
-        if(question_Handler.questionIndex == 2 && clip2 == false)
+        if(index == 2)
         {
-            speaker.PlayOneShot(AudioClip1);
-            clip2 = true;
+            speaker.PlayOneShot(q2);
         }
-        if(question_Handler.questionIndex == 3 && clip3 == false)
+        if (index == 3)
         {
-            speaker.PlayOneShot(AudioClip1);
-            clip3 = true;
+            speaker.PlayOneShot(q3);
         }
-        if(question_Handler.questionIndex == 4 && clip4 == false)
+        if(index == 4)
         {
-            speaker.PlayOneShot(AudioClip1);
-            clip4 = true;
+            speaker.PlayOneShot(q4);
+        }
+    }
+    public void PlayIntro(int index)
+    {
+        if(index == 0)
+        {
+            speaker.PlayOneShot(intro1);
+        }
+        if(index == 2)
+        {
+            speaker.PlayOneShot(intro2);
+        }
+        if(index == 3)
+        {
+            speaker.PlayOneShot(intro3);
+        }
+        if(index == 4)
+        {
+            speaker.PlayOneShot(intro4);
         }
     }
 }

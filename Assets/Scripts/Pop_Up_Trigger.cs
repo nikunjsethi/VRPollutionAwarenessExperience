@@ -4,24 +4,16 @@ using UnityEngine;
 public class PopupTrigger : MonoBehaviour
 {
     [Header("Setup")]
+
+    public int questionIndex = 0;
     [Tooltip("The GameObject to show (e.g., a World Space Canvas).")]
     public GameObject popupContent;
-    public AudioSource Speaker;
-    public AudioClip question_Clip;
-    public bool questionAnswered = false;
-    public int questionIndex = 0;
     public Question_handler question_Handler;
-    private int questionPlayed = 0;     
-
-
+    public Dialogue_Player dialogue_Player;
 
 
     [Tooltip("The tag checking for the player.")]
-    public string playerTag = "Player";
-
-    [Header("Behavior")]
-    [Tooltip("If true, the popup hides when you walk away.")]
-    public bool hideOnExit = true;
+    private string playerTag = "Player";
     
     [Tooltip("If true, the popup will face the player when it appears.")]
     public bool facePlayerOnEnable = true;
@@ -37,42 +29,15 @@ public class PopupTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(question_Handler.questionIndex == questionIndex - 1 && questionPlayed < questionIndex)
-        {
-            // Check if the object entering is the Player
-            if (other.CompareTag(playerTag))
-            {
-                if (popupContent != null)
-                {
-                    popupContent.SetActive(true);
-                    if (facePlayerOnEnable) LookAtPlayer(other.transform);
-                }
-
-                if(Speaker != null && question_Clip != null)
-                {
-                    Speaker.PlayOneShot(question_Clip);
-                }
-
-                questionPlayed = questionIndex;
-            }
-        }
-
-        
-    }
-
-    private void Question_Answered()
-    {
-        
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (questionAnswered && other.CompareTag(playerTag))
+        if (other.CompareTag(playerTag) && question_Handler.CanTrigger(questionIndex))
         {
             if (popupContent != null)
             {
-                popupContent.SetActive(false);
+                popupContent.SetActive(true);
+                if (facePlayerOnEnable) LookAtPlayer(other.transform);
             }
+
+            dialogue_Player.PlayDialogue(questionIndex);
         }
     }
 
@@ -83,7 +48,7 @@ public class PopupTrigger : MonoBehaviour
         direction.y = 0; // Keep text upright
         if (direction != Vector3.zero)
         {
-            popupContent.transform.rotation = Quaternion.LookRotation(-direction);
+            popupContent.transform.rotation = Quaternion.LookRotation(direction);
         }
     }
 }
