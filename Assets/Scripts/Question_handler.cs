@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Question_handler : MonoBehaviour
 {
@@ -6,6 +7,7 @@ public class Question_handler : MonoBehaviour
 
     public int score = 0;
     private Dialogue_Player dialogue_Player;
+    public Scene_Transition scene_Transition;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -39,6 +41,7 @@ public class Question_handler : MonoBehaviour
     {
         currentIndex += 1;
         dialogue_Player.PlayIntro(currentIndex);
+        scene_Transition.OnIndexUpdated(currentIndex, score);
     }
 
 

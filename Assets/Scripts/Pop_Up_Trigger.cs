@@ -7,6 +7,7 @@ public class PopupTrigger : MonoBehaviour
     [Header("Setup")]
 
     public int questionIndex = 0;
+    public bool questionTriggered = false;
     [Tooltip("The GameObject to show (e.g., a World Space Canvas).")]
     public GameObject popupContent;
     public Question_handler question_Handler;
@@ -26,11 +27,12 @@ public class PopupTrigger : MonoBehaviour
         {
             popupContent.SetActive(false);
         }
+        questionTriggered = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(playerTag) && question_Handler.CanTrigger(questionIndex))
+        if (other.CompareTag(playerTag) && question_Handler.CanTrigger(questionIndex) && !questionTriggered)
         {
             if (popupContent != null)
             {
@@ -39,6 +41,8 @@ public class PopupTrigger : MonoBehaviour
             }
 
             dialogue_Player.PlayDialogue(questionIndex);
+
+            questionTriggered = true;
         }
     }
 
