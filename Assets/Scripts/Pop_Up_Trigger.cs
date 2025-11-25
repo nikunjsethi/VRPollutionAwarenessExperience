@@ -1,5 +1,6 @@
-using UnityEditor.UI;
+//using UnityEditor.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PopupTrigger : MonoBehaviour
 {
