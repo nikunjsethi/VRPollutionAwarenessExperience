@@ -18,7 +18,6 @@ public class Scene_Transition : MonoBehaviour
     public float fadeDuration = 2f;            // how long the fade takes
 
     [Header("Scene build indexes for scores 0..4")]
-    public int[] sceneBuildIndexes = new int[5] { -1, -1, -1, -1, -1 };
 
     bool transitionStarted = false;
 
@@ -66,24 +65,10 @@ public class Scene_Transition : MonoBehaviour
         if (transitionStarted) return;
         transitionStarted = true;
 
-        if (sceneBuildIndexes == null || sceneBuildIndexes.Length < 5)
-        {
-            Debug.LogError("[STM-NoAudio] sceneBuildIndexes must have 5 entries for scores 0..4.");
-            return;
-        }
-
-        int clamped = Mathf.Clamp(score, 0, 4);
-        int buildIndex = sceneBuildIndexes[clamped];
-        if (buildIndex < 0)
-        {
-            Debug.LogError($"[STM-NoAudio] Invalid build index for score {clamped}. Aborting.");
-            return;
-        }
-
-        StartCoroutine(TransitionSequence(buildIndex));
+        StartCoroutine(TransitionSequence(score));
     }
 
-    IEnumerator TransitionSequence(int buildIndex)
+    IEnumerator TransitionSequence(int score)
     {
         // 1) initial delay (about 3s by default)
         if (initialDelaySeconds > 0f)
@@ -113,7 +98,7 @@ public class Scene_Transition : MonoBehaviour
         if (fadeRenderer != null) SetRendererAlpha(1f);
 
         // 4) load scene by build index
-        SceneManager.LoadScene(buildIndex);
+        SceneManager.LoadScene(score);
     }
 
     #region Fade helpers

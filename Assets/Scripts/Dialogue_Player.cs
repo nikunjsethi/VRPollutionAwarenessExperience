@@ -1,10 +1,11 @@
+using System.Collections;
 using UnityEngine;
 
 public class Dialogue_Player : MonoBehaviour
 {
     public Question_handler question_Handler;
-    public bool clipPlayed = false;
-    private int currentIndex = 0;
+    public float introWaitTime = 1f;
+    public float dialogueWaitTime = 0.5f;
     private AudioSource speaker;
     public AudioClip intro1;
     public AudioClip q1;
@@ -18,7 +19,6 @@ public class Dialogue_Player : MonoBehaviour
     void Start()
     {
         speaker = GetComponent<AudioSource>();
-        currentIndex = 0;
         PlayIntro(0);
     }
 
@@ -30,25 +30,45 @@ public class Dialogue_Player : MonoBehaviour
 
     public void PlayDialogue(int index)
     {
+        StartCoroutine(DelayDialogue(index));
+    }
+    public void PlayIntro(int index)
+    {
+
+        StartCoroutine(DelayIntro(index));
+        
+    }
+
+    IEnumerator DelayDialogue(int index)
+    {
+        yield return new WaitForSeconds(dialogueWaitTime);
+
         if(index == 1)
         {
+            speaker.Stop();
             speaker.PlayOneShot(q1);
         }
         if(index == 2)
         {
+            speaker.Stop();
             speaker.PlayOneShot(q2);
         }
         if (index == 3)
         {
+            speaker.Stop();
             speaker.PlayOneShot(q3);
         }
         if(index == 4)
         {
+            speaker.Stop();
             speaker.PlayOneShot(q4);
         }
     }
-    public void PlayIntro(int index)
+
+    IEnumerator DelayIntro(int index)
     {
+        yield return new WaitForSeconds(introWaitTime);
+
         if(index == 0)
         {
             speaker.PlayOneShot(intro1);
@@ -65,5 +85,11 @@ public class Dialogue_Player : MonoBehaviour
         {
             speaker.PlayOneShot(intro4);
         }
+
+    }
+
+    public void StopAudio()
+    {
+        speaker.Stop();
     }
 }

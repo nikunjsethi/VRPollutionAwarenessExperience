@@ -1,28 +1,42 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class SetPlayerPosition : MonoBehaviour
+public class VRSceneSpawn : MonoBehaviour
 {
-    // Tag your VR Rig as "Player" in the inspector!
-    public string playerTag = "Player"; 
-
-    void Start()
+    private void OnEnable()
     {
-        // 1. Find the Player Rig in the scene (works for both persistent and new rigs)
-        GameObject player = GameObject.FindGameObjectWithTag(playerTag);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
 
-        if (player != null)
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // 1. Find the spawn point in the new scene
+        GameObject spawnPoint = GameObject.Find("SpawnPoint");
+
+        if (spawnPoint != null)
         {
-            // 2. Teleport the player to THIS object's position
-            player.transform.position = transform.position;
-            
-            // 3. Match rotation (so you face the right way)
-            player.transform.rotation = transform.rotation;
-            
-            Debug.Log("Player successfully moved to SpawnPoint!");
+            // 2. Move the entire Rig to the spawn point
+            transform.position = spawnPoint.transform.position;
+            transform.rotation = spawnPoint.transform.rotation;
+
+            // 3. (Optional) Fix the rotation so the player faces the right way
+            // This rotates the Rig to match the spawn point, correcting for where the user is looking
+            MatchPlayerRotation(spawnPoint.transform);
         }
-        else
-        {
-            Debug.LogError("Could not find the Player! Did you forget to set the Tag?");
-        }
+    }
+
+    private void MatchPlayerRotation(Transform target)
+    {
+        // Get the camera's current local rotation (headset look direction)
+        float currentYRotation = Camera.main.transform.localEulerAngles.y;
+        // Calculate the difference needed to face the target direction
+        float rotationDelta = target.eulerAngles.y - currentYRotation;
+        // Apply that difference to the Rig
+        transform.Rotate(0, rotationDelta, 0);
     }
 }
