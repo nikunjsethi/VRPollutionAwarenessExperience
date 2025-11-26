@@ -96,7 +96,16 @@ public class Scene_Transition : MonoBehaviour
         if (fadeImage != null) SetImageAlpha(1f);
         if (fadeCanvasGroup != null) fadeCanvasGroup.alpha = 1f;
         if (fadeRenderer != null) SetRendererAlpha(1f);
-
+        if (score == 4)
+            score = 1;
+        else if (score == 3)
+            score = 2;
+        else if (score == 2)
+            score = 3;
+        else if (score == 1)
+            score = 4;
+        else
+            score = 5;
         // 4) load scene by build index
         SceneManager.LoadScene(score);
     }

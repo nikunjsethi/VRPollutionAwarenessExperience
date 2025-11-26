@@ -40,8 +40,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2228070112797109228}
-  - component: {fileID: 1999953354812855984}
-  - component: {fileID: 2585047875212115972}
   m_Layer: 0
   m_Name: VR Player
   m_TagString: Untagged
@@ -65,48 +63,6 @@ Transform:
   - {fileID: 4661793085898017198}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!143 &1999953354812855984
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1039299957312404919}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &2585047875212115972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1039299957312404919}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4791dd06d0b5ac743bef7aa85b4a3d8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::VRCharacterController
-  moveSpeed: 3
-  gravity: -9.81
-  jumpForce: 1
-  turnSpeed: 60
-  cameraTransform: {fileID: 7061329265338999882}
 --- !u!1 &1263555737596543548
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,7 +307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Meta.XR.BuildingBlocks::Meta.XR.BuildingBlocks.BuildingBlock
   blockId: e47682b9-c270-40b1-b16d-90b627a5ce1b
-  instanceId: 3920513d-1d5a-42eb-82eb-107d42e1ce70
+  instanceId: d51535a9-be97-4e33-9d73-cc4b22eb5842
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
